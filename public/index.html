@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>you are welcome to project x</h1>
+    <form>
+        <input type="text" id="input">
+        <button id="get">GET</button>
+        <button id="post">POST</button>
+    </form>
+
+    <script>
+        const btnget = document.getElementById('get')
+        const btnpost = document.getElementById('post')
+        const input = document.getElementById('input')
+        btnget.addEventListener('click', infoget)
+        btnpost.addEventListener('click', infopost)
+
+        const baseurl = 'http://localhost:5050/'
+        async function infoget(e){
+            //prevents page from refreshing
+            e.preventDefault()
+            const res = await fetch(baseurl + 'info', {method: 'GET'}) 
+            console.log(res)
+            const data = await res.json()
+            input.value = data.info
+
+
+        }
+
+        async function infopost(e){
+            //prevents page from refreshing
+            e.preventDefault()
+            const res = await fetch(baseurl, 
+            {
+                method: 'POST',
+                headers:{
+                    "content-Type": 'application/json'
+                },
+                body: JSON.stringify({
+                    parcel: input.value
+        })}) 
+           
+
+        }
+    </script>
+</body>
+</html>
